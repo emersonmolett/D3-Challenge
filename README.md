@@ -1,2 +1,1 @@
-# D3-Challenge
-D3 Dabbler
+In this assignment, HTML and Javascript were utilized to analyze current trends shapping people's lives. The data is housed in a CSV file, and is used to create a scatter plot. 
