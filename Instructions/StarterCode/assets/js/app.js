@@ -113,4 +113,12 @@ d3.csv("assets/data/data.csv").then(function (healthData, err) {
         .attr("x", 0 - (height / 1.5))
         .attr("dy", "1em")
         .attr("class, "axisText")
-        .text("Smokeing Rate");
+        .text("Smokeing Rate")
+
+    chartGroup.append("text")
+    .attr("transform", `translate(${width/2}, ${heiht + margin.top + 30})`)
+    .attr("class", "axisText")
+    .text("% in Poverty");
+}).catch(function(error) {
+
+});
