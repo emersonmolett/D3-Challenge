@@ -92,17 +92,25 @@ d3.csv("assets/data/data.csv").then(function (healthData, err) {
         .offset([80, -60])
         .html(function (d) {
             return (`${d.state}<br>% of Smokers: ${d.smokes}<br>% in Poverty: ${d.poverty}}`);
-});
+        });
 
-// tool tip
-chartGroup.call(toolTip);
+    // tool tip
+    chartGroup.call(toolTip);
 
-// event listeners 
-circlesGroup.on("mouseover", function(data) {
-    toolTip.show(data, this);
-})
+    // event listeners 
+    circlesGroup.on("mouseover", function (data) {
+        toolTip.show(data, this);
+    })
 
-.on("mouseout", function(data, index) {
-    toolTip.hide(data);
-});
+        .on("mouseout", function (data, index) {
+            toolTip.hide(data);
+        });
 
+    // create axes labels 
+    chartGroup.append("text")
+        .attr("transform", "rotate(-90)")
+        .attr("y", 0 - margin.left + 40)
+        .attr("x", 0 - (height / 1.5))
+        .attr("dy", "1em")
+        .attr("class, "axisText")
+        .text("Smokeing Rate");
