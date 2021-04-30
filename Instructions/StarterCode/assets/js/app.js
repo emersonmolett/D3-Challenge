@@ -94,3 +94,15 @@ d3.csv("assets/data/data.csv").then(function (healthData, err) {
             return (`${d.state}<br>% of Smokers: ${d.smokes}<br>% in Poverty: ${d.poverty}}`);
 });
 
+// tool tip
+chartGroup.call(toolTip);
+
+// event listeners 
+circlesGroup.on("mouseover", function(data) {
+    toolTip.show(data, this);
+})
+
+.on("mouseout", function(data, index) {
+    toolTip.hide(data);
+});
+
