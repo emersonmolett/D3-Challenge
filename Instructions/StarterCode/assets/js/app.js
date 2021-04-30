@@ -48,3 +48,7 @@ var yLinearScale = d3.scaleLinear()
     .domain([9, d3.max(healthData, d => d.smokes) * 2.9])
     .range([height, 0]);
     console.log(d3.extent(healthData, d => d.smokes));
+
+// axis functions 
+var bottomAxis = d3.axisBottom(xLinearScale);
+var leftAxis = d3.axisLeft(yLinearScale);
