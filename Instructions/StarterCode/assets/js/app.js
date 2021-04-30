@@ -37,51 +37,60 @@ d3.csv("assets/data/data.csv").then(function (healthData, err) {
         data.obesity = +data.obesity;
         data.healthcare = +data.healthcare
     })
+
+
+    // scale 
+    var xLinearScale = d3.scaleLinear()
+        .domain([9, d3.max(healthData, d => d.poverty)])
+        .range([0, width]);
+
+    var yLinearScale = d3.scaleLinear()
+        .domain([9, d3.max(healthData, d => d.smokes) * 2.9])
+        .range([height, 0]);
+    console.log(d3.extent(healthData, d => d.smokes));
+
+    // axis functions 
+    var bottomAxis = d3.axisBottom(xLinearScale);
+    var leftAxis = d3.axisLeft(yLinearScale);
+
+    // append axes to chart
+    var xAxis = chartGroup.append("g")
+        .classed("x-axis", true)
+        .attr("transform", `translate(0, ${height})`)
+        .call(bottomAxis);
+
+    chartGroup.append("g")
+        .call(leftAxis);
+
+    // create circles
+
+    var circlesGroup = chartGroup.selectAll("circle")
+        .data(healthData)
+        .enter()
+        .append("circle")
+        .attr("cx", d => xLinearScale(d.poverty))
+        .attr("cy", d => yLinearScale(d.smokes))
+        .attr("r", "8")
+        .attr("fill", "blue")
+        .attr("opactity", ".5")
+
+    // state lables 
+    var circlesLables = chartGroup.selectAll()
+        .enter()
+        .append("text")
+        .attr("x", d => xLinearScale(d.poverty))
+        .attr("y", d => yLinearScale(d.smokes) + 3)
+        .attr("font-family", "sans-serif")
+        .attr("font-size", "8px")
+        .attr("text-anchor", "middle")
+        .attr("fill", "white")
+        .text(d => d.abbr);
+
+    // initalize tool 
+    var toolTip = d.tip()
+        .attr("class", "d3-tip")
+        .offset([80, -60])
+        .html(function (d) {
+            return (`${d.state}<br>% of Smokers: ${d.smokes}<br>% in Poverty: ${d.poverty}}`);
 });
 
-// scale 
-var xLinearScale = d3.scaleLinear()
-    .domain([9, d3.max(healthData, d => d.poverty)])
-    .range([0, width]);
-
-var yLinearScale = d3.scaleLinear()
-    .domain([9, d3.max(healthData, d => d.smokes) * 2.9])
-    .range([height, 0]);
-console.log(d3.extent(healthData, d => d.smokes));
-
-// axis functions 
-var bottomAxis = d3.axisBottom(xLinearScale);
-var leftAxis = d3.axisLeft(yLinearScale);
-
-// append axes to chart
-var xAxis = chartGroup.append("g")
-    .classed("x-axis", true)
-    .attr("transform", `translate(0, ${height})`)
-    .call(bottomAxis);
-
-chartGroup.append("g")
-    .call(leftAxis);
-
-// create circles
-
-var circlesGroup = chartGroup.selectAll("circle")
-    .data(healthData)
-    .enter()
-    .append("circle")
-    .attr("cx", d => xLinearScale(d.poverty))
-    .attr("cy", d => yLinearScale(d.smokes))
-    .attr("r", "8")
-    .attr("fill", "blue")
-    .attr("opactity", ".5")
-
-// state lables 
-var circlesLables = chartGroup.selectAll()
-.enter()
-.append("text")
-.attr("x", d => xLinearScale(d.poverty))
-.attr("y", d => yLinearScale(d.smokes) + 3)
-.attr("font-family", "sans-serif")
-.attr("font-size", "8px")
-.attr("text-anchor", "middle")
-.attr("fill", "white")
-.text(d => d.abbr);
