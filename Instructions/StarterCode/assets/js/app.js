@@ -61,3 +61,15 @@ var xAxis = chartGroup.append("g")
 
 chartGroup.append("g")
     .call(leftAxis);
+
+// create circles
+
+var circlesGroup = chartGroup.selectAll("circle")
+.data(healthData)
+.enter()
+.append("circle")
+.attr("cx", d => xLinearScale(d.poverty))
+.attr("cy", d => yLinearScale(d.smokes))
+.attr("r","8")
+.attr("fill", "blue")
+.attr("opactity", ".5")
