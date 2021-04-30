@@ -11,3 +11,10 @@ var margin = {
 
 var width = svgWidth - margin.left - margin.right;
 var heiht = svgHeight - margin.top - margin.bottom; 
+
+// creating svg wrapper
+var svg = d3
+    .select("#scater")
+    .append("svg")
+    .attr("width", svgWidth)
+    .attr("height", svgHeight);
