@@ -1,4 +1,4 @@
-This assignment looks to examine the relation between smoking rate and poverty. The data is provided from the US Census Bureau. A scatter plot was produced through code writing. 
+This assignment looks to examine the relation between smoking rate and poverty. The data is provided from the US Census Bureau. A scatter plot was produced through code writing. JavaScript, HTML, D3 and CSS are used for this assignment. 
 
 </br>
 Data Points:</br>
